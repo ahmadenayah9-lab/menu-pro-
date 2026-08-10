@@ -3,97 +3,265 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>القائمة الرقمية | Menu Pro</title>
+  <title>القائمة الرقمية | Menu Pro V3</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   
   <style>
     :root {
       --gold: #e7ad3e;
       --gold-light: #ffd76b;
-      --bg: #0d0d0d;
-      --card-bg: #1a1a1a;
+      --gold-glow: rgba(231, 173, 62, 0.25);
+      --bg: #0a0a0c;
+      --card-bg: rgba(22, 22, 26, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
       --text: #ffffff;
-      --text-muted: #a0a0a0;
-      --border: #2a2a2a;
-      --radius: 16px;
+      --text-muted: #9a9ab0;
+      --radius: 20px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text); padding-bottom: 100px; line-height: 1.6; }
+    
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(231, 173, 62, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 60%, rgba(255, 115, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 100%, rgba(231, 173, 62, 0.08) 0%, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text);
+      padding-bottom: 120px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-    /* Header & Hero */
-    header { background: linear-gradient(180deg, rgba(231,173,62,0.15) 0%, rgba(13,13,13,1) 100%); padding: 30px 20px 20px; text-align: center; border-bottom: 1px solid var(--border); }
-    .brand-logo { font-size: 3rem; margin-bottom: 5px; }
-    h1 { font-size: 1.8rem; font-weight: 800; color: var(--gold-light); }
-    p.sub { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
+    /* Header & Branding */
+    header {
+      background: linear-gradient(180deg, rgba(231, 173, 62, 0.15) 0%, rgba(10, 10, 12, 0) 100%);
+      padding: 40px 20px 20px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .brand-logo {
+      font-size: 3.5rem;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 0 15px rgba(231, 173, 62, 0.5));
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    h1 { font-size: 2.2rem; font-weight: 900; color: #fff; letter-spacing: -0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+    p.sub { color: var(--gold-light); font-size: 1rem; margin-top: 4px; margin-bottom: 18px; font-weight: 500; opacity: 0.9; }
     
     .badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-    .badge { background: var(--card-bg); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; color: #ddd; }
+    .badge {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: #e0e0e0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
 
-    /* Layout Container */
-    .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+    /* Layout */
+    .container { max-width: 850px; margin: 0 auto; padding: 20px; }
 
-    /* Special Offer Banner */
-    .offer-banner { background: linear-gradient(135deg, #2a1f0c 0%, var(--card-bg) 100%); border: 1px solid var(--gold); border-radius: var(--radius); padding: 20px; margin-bottom: 25px; position: relative; overflow: hidden; display: none; }
-    .offer-tag { position: absolute; top: 12px; left: 12px; background: var(--gold); color: #000; font-weight: 700; font-size: 0.75rem; padding: 4px 10px; border-radius: 10px; }
-    .offer-title { font-size: 1.2rem; font-weight: 700; color: var(--gold-light); margin-bottom: 5px; }
-    .offer-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; }
-    .offer-price { font-size: 1.3rem; font-weight: 800; color: #fff; }
-    .offer-price del { font-size: 0.9rem; color: #777; margin-left: 8px; }
+    /* Offer Banner */
+    .offer-banner {
+      background: linear-gradient(135deg, rgba(42, 31, 12, 0.9) 0%, rgba(20, 20, 25, 0.95) 100%);
+      border: 1px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(231, 173, 62, 0.15);
+      backdrop-filter: blur(10px);
+      display: none;
+    }
+    .offer-tag {
+      position: absolute; top: 14px; left: 14px;
+      background: linear-gradient(135deg, var(--gold) 0%, #f39c12 100%);
+      color: #000; font-weight: 800; font-size: 0.75rem;
+      padding: 4px 12px; border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(231, 173, 62, 0.4);
+    }
+    .offer-title { font-size: 1.3rem; font-weight: 800; color: var(--gold-light); margin-bottom: 6px; }
+    .offer-desc { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 18px; }
+    .offer-price { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .offer-price del { font-size: 0.95rem; color: #777; margin-left: 8px; }
 
     /* Search & Categories */
-    .search-box { width: 100%; background: var(--card-bg); border: 1px solid var(--border); padding: 14px 18px; border-radius: 12px; color: #fff; font-size: 1rem; outline: none; margin-bottom: 20px; transition: 0.3s; }
-    .search-box:focus { border-color: var(--gold); }
+    .search-box {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      padding: 16px 20px;
+      border-radius: 16px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      margin-bottom: 22px;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .search-box:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px var(--gold-glow), inset 0 2px 4px rgba(0,0,0,0.3);
+    }
     
     .categories { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 25px; scrollbar-width: none; }
     .categories::-webkit-scrollbar { display: none; }
-    .cat-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); padding: 8px 18px; border-radius: 25px; white-space: nowrap; cursor: pointer; font-weight: 600; transition: 0.3s; }
-    .cat-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+    .cat-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 10px 22px;
+      border-radius: 30px;
+      white-space: nowrap;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+    .cat-btn.active {
+      background: linear-gradient(135deg, var(--gold) 0%, #f39c12 100%);
+      color: #000;
+      border-color: var(--gold);
+      box-shadow: 0 6px 20px rgba(231, 173, 62, 0.3);
+    }
 
-    /* Product Grid & Cards */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
-    .card:hover { border-color: rgba(231,173,62,0.4); transform: translateY(-2px); }
-    .card-img { width: 100%; height: 160px; object-fit: cover; cursor: pointer; }
-    .card-body { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
+    /* Product Grid & Glass Cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 22px; }
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .card:hover {
+      border-color: rgba(231, 173, 62, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(231, 173, 62, 0.15);
+    }
+    .card-img { width: 100%; height: 170px; object-fit: cover; cursor: pointer; transition: transform 0.5s ease; }
+    .card:hover .card-img { transform: scale(1.04); }
+    .card-body { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; }
     .card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-    .card-title { font-size: 1.05rem; font-weight: 700; }
-    .card-rating { font-size: 0.8rem; color: var(--gold-light); }
-    .card-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; flex-grow: 1; }
+    .card-title { font-size: 1.1rem; font-weight: 800; color: #fff; }
+    .card-rating { font-size: 0.85rem; color: var(--gold-light); font-weight: 700; }
+    .card-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 18px; flex-grow: 1; line-height: 1.5; }
     .card-foot { display: flex; justify-content: space-between; align-items: center; }
-    .price { font-weight: 800; font-size: 1.1rem; color: var(--gold-light); }
-    .btn-add { background: var(--gold); color: #000; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; }
-    .btn-add:active { transform: scale(0.95); }
-
-    /* Cart Floating Bar & Drawer */
-    .cart-float { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: calc(100% - 40px); max-width: 760px; background: var(--gold); color: #000; padding: 14px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; box-shadow: 0 10px 25px rgba(231,173,62,0.3); cursor: pointer; z-index: 99; }
+    .price { font-weight: 900; font-size: 1.2rem; color: var(--gold-light); }
     
-    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); opacity: 0; pointer-events: none; transition: 0.3s; z-index: 1000; }
+    .btn-add {
+      background: linear-gradient(135deg, var(--gold) 0%, #d49520 100%);
+      color: #000;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(231, 173, 62, 0.25);
+    }
+    .btn-add:active { transform: scale(0.94); }
+
+    /* Floating Cart Bar */
+    .cart-float {
+      position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+      width: calc(100% - 40px); max-width: 810px;
+      background: linear-gradient(135deg, var(--gold) 0%, #e69c17 100%);
+      color: #000; padding: 16px 24px; border-radius: 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-weight: 900; font-size: 1.05rem;
+      box-shadow: 0 12px 35px rgba(231, 173, 62, 0.4);
+      cursor: pointer; z-index: 99; transition: transform 0.2s ease;
+    }
+    .cart-float:active { transform: translateX(-50%) scale(0.98); }
+    
+    /* Cart Drawer Overlay */
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: 0.3s ease; z-index: 1000; }
     .drawer-overlay.active { opacity: 1; pointer-events: all; }
-    .drawer { position: fixed; bottom: 0; left: 0; right: 0; max-height: 85vh; background: #141414; border-top-left-radius: 24px; border-top-right-radius: 24px; padding: 25px; transform: translateY(100%); transition: 0.3s ease-out; z-index: 1001; overflow-y: auto; }
+    
+    .drawer {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      max-height: 88vh;
+      background: #121216;
+      border-top: 1px solid var(--gold);
+      border-top-left-radius: 28px; border-top-right-radius: 28px;
+      padding: 28px 22px; transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1001; overflow-y: auto;
+      box-shadow: 0 -15px 40px rgba(0,0,0,0.8);
+    }
     .drawer.active { transform: translateY(0); }
 
-    .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-    .close-btn { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; border-bottom: 1px solid var(--card-border); padding-bottom: 14px; }
+    .drawer-header h3 { font-size: 1.3rem; font-weight: 800; color: var(--gold-light); }
+    .close-btn { background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; opacity: 0.7; }
     
-    .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: var(--card-bg); padding: 12px; border-radius: 12px; }
-    .qty-controls { display: flex; align-items: center; gap: 10px; }
-    .qty-btn { width: 28px; height: 28px; background: #333; color: #fff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 14px; border-radius: 14px; }
+    .qty-controls { display: flex; align-items: center; gap: 12px; }
+    .qty-btn { width: 32px; height: 32px; background: rgba(255,255,255,0.1); color: #fff; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 1rem; }
 
-    .form-group { margin-top: 15px; }
-    .form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; }
-    .form-input { width: 100%; background: var(--card-bg); border: 1px solid var(--border); padding: 10px 14px; border-radius: 8px; color: #fff; outline: none; }
+    /* Modern Inputs */
+    .form-group { margin-top: 16px; }
+    .form-group label { display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700; }
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      padding: 13px 16px;
+      border-radius: 12px;
+      color: #fff;
+      outline: none;
+      font-size: 0.95rem;
+      transition: border 0.3s ease;
+    }
+    .form-input:focus { border-color: var(--gold); }
+    select.form-input option { background: #121216; color: #fff; }
     
-    .btn-submit { width: 100%; background: #25D366; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 1rem; margin-top: 20px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: #fff; border: none;
+      padding: 16px; border-radius: 14px;
+      font-weight: 800; font-size: 1.05rem;
+      margin-top: 24px; cursor: pointer;
+      display: flex; justify-content: center; align-items: center; gap: 10px;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+      transition: transform 0.2s ease;
+    }
+    .btn-submit:active { transform: scale(0.98); }
 
-    /* Modal & Toast */
-    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 2000; padding: 20px; }
+    /* Modals & Toasts */
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s ease; z-index: 2000; padding: 20px; }
     .modal.active { opacity: 1; pointer-events: all; }
-    .modal-content { background: var(--card-bg); border-radius: var(--radius); max-width: 450px; width: 100%; overflow: hidden; border: 1px solid var(--border); }
+    .modal-content { background: #141418; border-radius: 24px; max-width: 460px; width: 100%; overflow: hidden; border: 1px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
 
-    .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-50px); background: var(--gold); color: #000; padding: 10px 20px; border-radius: 20px; font-weight: 700; opacity: 0; transition: 0.3s; z-index: 3000; }
+    .toast {
+      position: fixed; top: 25px; left: 50%; transform: translateX(-50%) translateY(-60px);
+      background: linear-gradient(135deg, var(--gold) 0%, #d49520 100%);
+      color: #000; padding: 12px 26px; border-radius: 30px;
+      font-weight: 800; opacity: 0; transition: all 0.3s ease;
+      z-index: 3000; box-shadow: 0 8px 25px rgba(231,173,62,0.4);
+    }
     .toast.active { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
@@ -106,28 +274,28 @@
     <p class="sub" id="subtitle">وصف المطعم</p>
     <div class="badges">
       <span class="badge" id="rating">⭐ 0.0</span>
-      <span class="badge" id="deliveryTime">⏱️ 0 دقيقة</span>
+      <span class="badge" id="deliveryTime">🛵 0 دقيقة</span>
       <span class="badge" id="openingHours">🕐 ساعات العمل</span>
     </div>
   </header>
 
   <div class="container">
-    <!-- Featured Offer Banner -->
+    <!-- Special Offer Banner -->
     <div class="offer-banner" id="offerBanner">
       <span class="offer-tag" id="offerTag">عرض خاص</span>
       <div class="offer-title" id="offerTitle">اسم العرض</div>
       <div class="offer-desc" id="offerDesc">تفاصيل العرض</div>
-      <div style="display:flex; justify-style:space-between; align-items:center;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
         <div class="offer-price"><span id="offerPrice">0</span> <small class="curr"></small> <del id="offerOldPrice"></del></div>
-        <button class="btn-add" id="offerAddBtn">طلب العرض الآن</button>
+        <button class="btn-add" id="offerAddBtn">أطلب العرض الآن</button>
       </div>
     </div>
 
     <!-- Search & Categories -->
-    <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث عن وجبة أو مشروب...">
+    <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث عن وجبتك المفضلة أو المشروبات...">
     <div class="categories" id="categoriesContainer"></div>
 
-    <!-- Food Grid -->
+    <!-- Product Grid -->
     <div class="grid" id="foodGrid"></div>
   </div>
 
@@ -141,46 +309,49 @@
   <div class="drawer-overlay" id="drawerOverlay" onclick="toggleCart(false)"></div>
   <div class="drawer" id="cartDrawer">
     <div class="drawer-header">
-      <h3>تفاصيل الطلب</h3>
+      <h3>إتمام الطلب</h3>
       <button class="close-btn" onclick="toggleCart(false)">&times;</button>
     </div>
+    
     <div id="cartItems"></div>
     
     <div class="form-group">
       <label>الاسم الكامل</label>
       <input type="text" id="custName" class="form-input" placeholder="أدخل اسمك الكريم">
     </div>
+    
     <div class="form-group">
-      <label>نوع الطلب</label>
+      <label>طريقة الاستلام</label>
       <select id="orderType" class="form-input">
-        <option value="توصيل 🛵">توصيل للمنزل</option>
-        <option value="استلام من الفرع 🏃">استلام من الفرع</option>
-        <option value="داخل المطعم 🍽️">طلب على الطاولة</option>
+        <option value="توصيل للمنزل 🛵">توصيل للمنزل 🛵</option>
+        <option value="استلام مباشر من الفرع 🏃">استلام مباشر من الفرع 🏃</option>
       </select>
     </div>
+    
     <div class="form-group">
-      <label>العنوان / رقم الطاولة</label>
-      <input type="text" id="custLoc" class="form-input" placeholder="اسم المنطقة أو رقم الطاولة">
+      <label>عنوان التوصيل بالتفصيل</label>
+      <input type="text" id="custLoc" class="form-input" placeholder="مثال: عمان - شارع الجامعة - العمارة 15">
     </div>
+    
     <div class="form-group">
-      <label>ملاحظات إضافية</label>
-      <input type="text" id="custNote" class="form-input" placeholder="بدون بصل، صوص إضافي...">
+      <label>ملاحظات إضافية (اختياري)</label>
+      <input type="text" id="custNote" class="form-input" placeholder="مثال: بدون بصل، صوص إضافي...">
     </div>
 
     <button class="btn-submit" onclick="sendWhatsAppOrder()">
-      إرسال الطلب عبر الواتساب 💬
+      <span>إرسال الطلب عبر الواتساب</span> 💬
     </button>
   </div>
 
   <!-- Food Item Modal -->
   <div class="modal" id="itemModal" onclick="closeModal(event)">
     <div class="modal-content">
-      <img id="mImg" src="" style="width:100%; height:220px; object-fit:cover;">
-      <div style="padding:20px;">
-        <h3 id="mTitle" style="margin-bottom:8px;"></h3>
-        <p id="mDesc" style="color:var(--text-muted); font-size:0.9rem; margin-bottom:15px;"></p>
+      <img id="mImg" src="" style="width:100%; height:230px; object-fit:cover;">
+      <div style="padding:22px;">
+        <h3 id="mTitle" style="margin-bottom:8px; font-size:1.2rem; color:#fff;"></h3>
+        <p id="mDesc" style="color:var(--text-muted); font-size:0.9rem; margin-bottom:18px; line-height:1.5;"></p>
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-size:1.3rem; font-weight:800; color:var(--gold-light);" id="mPrice"></span>
+          <span style="font-size:1.4rem; font-weight:900; color:var(--gold-light);" id="mPrice"></span>
           <button class="btn-add" id="mAddBtn">إضافة للسلة</button>
         </div>
       </div>
@@ -190,32 +361,25 @@
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
-  <!-- Config Import -->
+  <!-- Import External Config -->
   <script src="config.js"></script>
 
-  <!-- Main Logic Script -->
+  <!-- Script Logic -->
   <script>
-    /* =========================
-       MOCK DATASET
-    ========================= */
     const foods = [
-      { id: 1, name: "مشاوي مشكلة فاخرة", cat: "المشاوي", price: 8.50, rating: "4.9", desc: "سيخ كباب، سيخ شيش طاووق، سيخ شقف مع البطاطا والمقبلات.", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" },
-      { id: 2, name: "كباب حلبي بالبندورة", cat: "المشاوي", price: 7.00, rating: "4.8", desc: "كباب لحم غنم طازج مشوي مع صلصة البندورة المشوية.", img: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=600&q=80" },
-      { id: 3, name: "شيش طاووق على الفحم", cat: "المشاوي", price: 6.50, rating: "4.7", desc: "قطع دجاج متبلة بالأعشاب والثوم مشوية على الفحم.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=600&q=80" },
-      { id: 4, name: "سلطة تبولة لبنانية", cat: "المقبلات", price: 2.50, rating: "4.6", desc: "بقدونس طازج، برغل، بندورة، زيت زيتون وحامض.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80" },
-      { id: 5, name: "حمص باللحم والصنوبر", cat: "المقبلات", price: 3.50, rating: "4.9", desc: "حمص ناعم يعلوه لحم غنم مفروم وصنوبر محمص.", img: "https://images.unsplash.com/photo-1577906096429-f73c2c312435?auto=format&fit=crop&w=600&q=80" },
-      { id: 6, name: "عصير برتقال طازج", cat: "المشروبات", price: 2.00, rating: "4.8", desc: "برتقال طبيعي معصور طازج بدون إضافة سكر.", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80" }
+      { id: 1, name: "مشاوي مشكلة فاخرة", cat: "المشاوي", price: 8.50, rating: "4.9", desc: "سيخ كباب، سيخ شيش طاووق، سيخ شقف مع البطاطا والمقبلات والخبز المحمص.", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" },
+      { id: 2, name: "كباب حلبي بالبندورة", cat: "المشاوي", price: 7.00, rating: "4.8", desc: "كباب لحم غنم طازج مشوي على الفحم مع صلصة البندورة المشوية الحارة.", img: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=600&q=80" },
+      { id: 3, name: "شيش طاووق على الفحم", cat: "المشاوي", price: 6.50, rating: "4.7", desc: "قطع دجاج متبلة بالأعشاب والثوم مشوية بعناية تقدم مع ثومية وبطاطا.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=600&q=80" },
+      { id: 4, name: "سلطة تبولة لبنانية", cat: "المقبلات", price: 2.50, rating: "4.6", desc: "بقدونس طازج، برغل ناعم، بندورة، بصل، زيت زيتون صافي وعصير ليمون.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80" },
+      { id: 5, name: "حمص باللحم والصنوبر", cat: "المقبلات", price: 3.50, rating: "4.9", desc: "حمص ناعم بالطحينية يعلوه لحم غنم بلدي مفروم وصنوبر محمص بالسمنة.", img: "https://images.unsplash.com/photo-1577906096429-f73c2c312435?auto=format&fit=crop&w=600&q=80" },
+      { id: 6, name: "عصير برتقال طازج", cat: "المشروبات", price: 2.00, rating: "4.8", desc: "برتقال طبيعي 100% معصور طازج فور الطلب بدون إضافة سكر.", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80" }
     ];
 
-    /* =========================
-       APP INITIALIZATION
-    ========================= */
     const config = window.MENU_CONFIG || {};
     let cart = [];
     let activeCategory = "الكل";
 
     document.addEventListener("DOMContentLoaded", () => {
-      applyTheme();
       initUI();
       renderCategories();
       renderProducts();
@@ -223,42 +387,29 @@
       document.getElementById("searchInput").addEventListener("input", renderProducts);
     });
 
-    function applyTheme() {
-      if (config.theme) {
-        document.documentElement.style.setProperty('--gold', config.theme.gold || '#e7ad3e');
-        document.documentElement.style.setProperty('--gold-light', config.theme.goldLight || '#ffd76b');
-        document.documentElement.style.setProperty('--bg', config.theme.background || '#0d0d0d');
-        document.documentElement.style.setProperty('--card-bg', config.theme.cardBg || '#1a1a1a');
-      }
-    }
-
     function initUI() {
       document.getElementById("logo").innerText = config.logo || "🔥";
-      document.getElementById("restaurantName").innerText = config.restaurantName || "المطعم";
-      document.getElementById("subtitle").innerText = config.subtitle || "";
+      document.getElementById("restaurantName").innerText = config.restaurantName || "جمر وذهب";
+      document.getElementById("subtitle").innerText = config.subtitle || "مطعم ومشاوي شرقية";
       document.getElementById("rating").innerText = "⭐ " + (config.rating || "4.9");
-      document.getElementById("deliveryTime").innerText = "🛵 " + (config.deliveryTime || "30 دقيقة");
-      document.getElementById("openingHours").innerText = "🕐 " + (config.openingHours || "");
+      document.getElementById("deliveryTime").innerText = "🛵 " + (config.deliveryTime || "25–35 دقيقة");
+      document.getElementById("openingHours").innerText = "🕐 " + (config.openingHours || "11:00 ص — 1:00 ص");
 
       document.querySelectorAll(".curr").forEach(el => el.innerText = config.currency || "JOD");
 
-      // Setup Offer
       if (config.offer && config.offer.enabled) {
         const off = config.offer;
         const banner = document.getElementById("offerBanner");
         banner.style.display = "block";
-        document.getElementById("offerTag").innerText = off.label;
+        document.getElementById("offerTag").innerText = off.label || "عرض خاص";
         document.getElementById("offerTitle").innerText = off.name;
         document.getElementById("offerDesc").innerText = off.description;
-        document.getElementById("offerPrice").innerText = off.price.toFixed(2);
-        document.getElementById("offerOldPrice").innerText = off.oldPrice ? off.oldPrice.toFixed(2) + " " + config.currency : "";
-        document.getElementById("offerAddBtn").onclick = () => addToCart(off.productId);
+        document.getElementById("offerPrice").innerText = Number(off.price).toFixed(2);
+        document.getElementById("offerOldPrice").innerText = off.oldPrice ? Number(off.oldPrice).toFixed(2) + " " + (config.currency || "JOD") : "";
+        document.getElementById("offerAddBtn").onclick = () => addToCart(off.productId || 1);
       }
     }
 
-    /* =========================
-       RENDER PRODUCTS & FILTERS
-    ========================= */
     function renderCategories() {
       const cats = ["الكل", ...new Set(foods.map(f => f.cat))];
       const container = document.getElementById("categoriesContainer");
@@ -274,7 +425,7 @@
     }
 
     function renderProducts() {
-      const query = document.getElementById("searchInput").value.toLowerCase();
+      const query = document.getElementById("searchInput").value.toLowerCase().trim();
       const grid = document.getElementById("foodGrid");
 
       const filtered = foods.filter(item => {
@@ -284,7 +435,7 @@
       });
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--text-muted); padding:30px;">لا توجد نتائج مطابقة لبحثك.</p>`;
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--text-muted); padding:40px; font-weight:500;">لا توجد وجبات مطابقة لبحثك حالياً.</p>`;
         return;
       }
 
@@ -298,7 +449,7 @@
             </div>
             <p class="card-desc">${item.desc}</p>
             <div class="card-foot">
-              <span class="price">${item.price.toFixed(2)} <small>${config.currency}</small></span>
+              <span class="price">${item.price.toFixed(2)} <small style="font-size:0.75rem;">${config.currency || "JOD"}</small></span>
               <button class="btn-add" onclick="addToCart(${item.id})">+ إضافة</button>
             </div>
           </div>
@@ -306,9 +457,6 @@
       `).join("");
     }
 
-    /* =========================
-       CART & DRAWER SYSTEM
-    ========================= */
     function addToCart(id) {
       const item = foods.find(f => f.id === id);
       if (!item) return;
@@ -336,19 +484,19 @@
       totalEl.innerText = totalPrice.toFixed(2);
 
       if (cart.length === 0) {
-        itemsContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:20px;">السلة فارغة حالياً 🛒</p>`;
+        itemsContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:25px; font-weight:500;">السلة فارغة حالياً 🛒</p>`;
         return;
       }
 
       itemsContainer.innerHTML = cart.map(i => `
         <div class="cart-item">
           <div>
-            <div style="font-weight:700;">${i.name}</div>
-            <div style="font-size:0.85rem; color:var(--gold-light);">${(i.price * i.qty).toFixed(2)} ${config.currency}</div>
+            <div style="font-weight:800; font-size:0.95rem;">${i.name}</div>
+            <div style="font-size:0.85rem; color:var(--gold-light); font-weight:700;">${(i.price * i.qty).toFixed(2)} ${config.currency || "JOD"}</div>
           </div>
           <div class="qty-controls">
             <button class="qty-btn" onclick="changeQty(${i.id}, -1)">-</button>
-            <span>${i.qty}</span>
+            <span style="font-weight:800; font-size:1rem;">${i.qty}</span>
             <button class="qty-btn" onclick="changeQty(${i.id}, 1)">+</button>
           </div>
         </div>
@@ -372,12 +520,9 @@
       document.getElementById("cartDrawer").classList.toggle("active", open);
     }
 
-    /* =========================
-       WHATSAPP ORDERING
-    ========================= */
     function sendWhatsAppOrder() {
       if (cart.length === 0) {
-        showToast("يرجى إضافة وجبات إلى السلة أولاً!");
+        showToast("السلة فارغة! قم بإضافة وجباتك أولاً");
         return;
       }
 
@@ -391,27 +536,25 @@
         return;
       }
 
-      let text = `*طلب جديد من ${config.restaurantName}* 🍽️\n\n`;
+      let text = `*طلب جديد من ${config.restaurantName || "المطعم"}* 🍽️\n\n`;
       text += `👤 *الاسم:* ${name}\n`;
-      text += `🛵 *نوع الطلب:* ${type}\n`;
-      if (loc) text += `📍 *العنوان / الطاولة:* ${loc}\n`;
+      text += `🛵 *طريقة الاستلام:* ${type}\n`;
+      if (loc) text += `📍 *العنوان:* ${loc}\n`;
       if (note) text += `📝 *ملاحظات:* ${note}\n`;
 
-      text += `\n*تفاصيل الوجبات:*\n`;
+      text += `\n*التفاصيل:*\n`;
       cart.forEach((item, idx) => {
-        text += `${idx + 1}. ${item.name} × ${item.qty} = ${(item.price * item.qty).toFixed(2)} ${config.currency}\n`;
+        text += `${idx + 1}. ${item.name} × ${item.qty} = ${(item.price * item.qty).toFixed(2)} ${config.currency || "JOD"}\n`;
       });
 
       const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
-      text += `\n💰 *الإجمالي النهائي:* ${total.toFixed(2)} ${config.currency}`;
+      text += `\n💰 *الإجمالي:* ${total.toFixed(2)} ${config.currency || "JOD"}`;
 
-      const waUrl = `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(text)}`;
+      const waNumber = config.whatsapp || "962790000000";
+      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
       window.open(waUrl, "_blank");
     }
 
-    /* =========================
-       MODAL & TOAST
-    ========================= */
     function openModal(id) {
       const item = foods.find(f => f.id === id);
       if (!item) return;
@@ -419,7 +562,7 @@
       document.getElementById("mImg").src = item.img;
       document.getElementById("mTitle").innerText = item.name;
       document.getElementById("mDesc").innerText = item.desc;
-      document.getElementById("mPrice").innerText = `${item.price.toFixed(2)} ${config.currency}`;
+      document.getElementById("mPrice").innerText = `${item.price.toFixed(2)} ${config.currency || "JOD"}`;
       
       const addBtn = document.getElementById("mAddBtn");
       addBtn.onclick = () => {
