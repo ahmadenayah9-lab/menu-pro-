@@ -1,60 +1,44 @@
-```javascript
-/*
-  MENU PRO V3 — Restaurant Configuration
-  ========================================
-  عدّل هذه البيانات فقط لكل مطعم.
-*/
-
+/* ========================================
+   MENU PRO V3 — Restaurant Configuration
+   ======================================== */
 window.MENU_CONFIG = {
-
   // 🏪 معلومات المطعم
   restaurantName: "جمر وذهب",
-  subtitle: "مطعم ومشاوي شرقية",
+  subtitle: "مطعم ومشاوي شرقية فاخرة",
   logo: "🔥",
 
-  // 📍 التواصل
+  // 📍 التواصل والعنوان
   address: "شارع الجامعة - عمّان",
-  phone: "079 000 0000",
+  phone: "0790000000",
   whatsapp: "962790000000",
+  instagram: "https://instagram.com",
+  facebook: "https://facebook.com",
 
-  // 📱 السوشال ميديا
-  instagram: "",
-  facebook: "",
-
-  // 🕐 أوقات العمل
+  // 🕐 أوقات العمل والخدمة
   openingHours: "يومياً 11:00 ص — 1:00 ص",
-
-  // ⭐ التقييم
-  rating: "4.9",
-  reviews: "+500",
-
-  // 🚚 معلومات الخدمة
   deliveryTime: "25–35 دقيقة",
-  delivery: true,
-  pickup: true,
-  tableOrders: true,
+  rating: "4.9 ⭐",
+  reviews: "+500 تقييم",
 
   // 💰 العملة
   currency: "JOD",
-  currencyLabel: "JOD",
 
-  // 🎨 ألوان الموقع
+  // 🎨 ألوان الموقع (CSS Variables)
   theme: {
     gold: "#e7ad3e",
     goldLight: "#ffd76b",
-    background: "#070707"
+    background: "#0d0d0d",
+    cardBg: "#1a1a1a"
   },
 
-  // 🔥 العرض الرئيسي
+  // 🔥 العرض الرئيسي المميز
   offer: {
     enabled: true,
-    label: "🔥 عرض اليوم",
+    label: "🔥 عرض اليوم المميز",
     name: "وجبة التوفير الذهبية",
-    description: "برجر كلاسيك + بطاطا + مشروب",
-    oldPrice: 9.50,
-    price: 7.50,
-    productId: 9
+    description: "طبق مشاوي مشكلة + سلطة + بطاطا + مشروب مجاناً",
+    oldPrice: 12.00,
+    price: 8.50,
+    productId: 1
   }
-
 };
-```
