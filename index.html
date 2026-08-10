@@ -8,6 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+<!-- ربط ملف الإعدادات -->
+<script src="config.js"></script>
+
 <style>
 /* ============ CORE ============ */
 :root{
@@ -47,10 +51,10 @@ a{color:inherit;text-decoration:none}
 
 /* ============ LOADER ============ */
 #loader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:grid;place-items:center;transition:.7s;text-align:center}
-#loader.out{opacity:0;visibility:hidden}
+#loader.out{opacity:0;visibility:hidden;pointer-events:none}
 .ldr-mark{width:96px;height:96px;border-radius:28px;background:var(--grad);display:grid;place-items:center;font-size:44px;margin:auto;animation:pop 1.6s ease-in-out infinite;box-shadow:0 0 70px rgba(212,175,95,.45)}
 @keyframes pop{50%{transform:scale(.9) rotate(-6deg)}}
-.ldr-bar{width:170px;height:3px;border-radius:9px;background:rgba(255,255,255,.1);margin:26px auto 0;overflow:hidden}
+.ldr-bar{width:170px;height:3px;border-radius:99px;background:rgba(255,255,255,.1);margin:26px auto 0;overflow:hidden}
 .ldr-bar span{display:block;height:100%;width:40%;background:var(--grad);animation:sl 1.1s infinite}
 @keyframes sl{0%{transform:translateX(180%)}100%{transform:translateX(-260%)}}
 
@@ -176,7 +180,7 @@ footer{background:var(--bg2);border-top:1px solid var(--line);padding:64px 0 24p
 .ci b{font-size:14.5px}
 .ci .o{font-size:11.5px;color:var(--mut)}
 .qty{display:flex;align-items:center;gap:9px;margin-top:7px}
-.qty button{width:28px;height:28px;border-radius:9px;border:1px solid var(--line);background:0;cursor:pointer;font-weight:900}
+.qty button{width:28px;height:28px;border-radius:99px;border:1px solid var(--line);background:0;cursor:pointer;font-weight:900}
 .qty span{min-width:22px;text-align:center;font-weight:800}
 .sum{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;color:var(--mut)}
 .sum.tot{font-size:19px;font-weight:900;color:var(--txt);border-top:1px dashed var(--line);margin-top:8px;padding-top:12px}
@@ -197,7 +201,7 @@ footer{background:var(--bg2);border-top:1px solid var(--line);padding:64px 0 24p
 .box img.cov{width:100%;height:230px;object-fit:cover}
 .box .pad{padding:22px}
 .opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
-.opt{padding:9px 15px;border-radius:12px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:13.5px;font-weight:700;transition:.25s}
+.opt{padding:99px;border-radius:12px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:13.5px;font-weight:700;transition:.25s}
 .opt.on{background:var(--grad);color:#100d05;border-color:transparent}
 
 /* ============ FLOAT / TOAST ============ */
@@ -285,7 +289,7 @@ footer{background:var(--bg2);border-top:1px solid var(--line);padding:64px 0 24p
       <li><a href="#" id="fMap">موقعنا على الخريطة</a></li></ul></div>
   </div>
   <div class="copy">© <span id="yr"></span> <span id="fName"></span> — تصميم MENU PRO V4</div>
-</div></footer>
+</footer>
 
 <!-- OVERLAY + CART -->
 <div class="ov" id="ov"></div>
@@ -329,38 +333,43 @@ footer{background:var(--bg2);border-top:1px solid var(--line);padding:64px 0 24p
 <div id="toast"></div>
 
 <script>
-const C = window.MENU_CONFIG, CUR = C.currency || "JOD";
+const C = window.MENU_CONFIG || {};
+const CUR = C.currency || "JOD";
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const money = n => Number(n).toFixed(2);
+const go = sel => document.querySelector(sel)?.scrollIntoView({behavior:'smooth'});
+
 let cart = JSON.parse(localStorage.getItem('mp_cart') || '[]');
 let favs = JSON.parse(localStorage.getItem('mp_favs') || '[]');
 let filter = 'all', search = '', type = 'delivery', disc = 0;
 
 /* ---------- INIT ---------- */
-$('#bName').textContent = C.restaurantName;
-$('#bSub').textContent = C.subtitle;
-$('#hTag').textContent = (C.tagline || '').split('…').pop().trim() || 'الذاكرة';
-$('#hTxt').textContent = C.heroText;
-$('#callBtn').href = 'tel:' + C.phone.replace(/\s/g,'');
-$('#waFloat').href = 'https://wa.me/' + C.whatsapp;
-$('#fName').textContent = C.restaurantName;
-$('#fAbout').textContent = C.tagline;
-$('#fAddr').textContent = '📍 ' + C.address;
-$('#fPhone').innerHTML = '📞 <a href="tel:'+C.phone.replace(/\s/g,'')+'">'+C.phone+'</a>';
-$('#fHours').textContent = '🕐 ' + C.hoursText;
-$('#fMap').href = C.mapsUrl || '#';
-$('#yr').textContent = new Date().getFullYear();
-if(!C.show.ticker) $('#ticker').remove();
-if(!C.show.qr) $('#qrBtn').remove();
-if(!C.show.offerBanner) $('#offer').remove();
+if (C.restaurantName) {
+  $('#bName').textContent = C.restaurantName;
+  $('#bSub').textContent = C.subtitle;
+  $('#hTag').textContent = (C.tagline || '').split('…').pop().trim() || 'الذاكرة';
+  $('#hTxt').textContent = C.heroText;
+  $('#callBtn').href = 'tel:' + C.phone.replace(/\s/g,'');
+  $('#waFloat').href = 'https://wa.me/' + C.whatsapp;
+  $('#fName').textContent = C.restaurantName;
+  $('#fAbout').textContent = C.tagline;
+  $('#fAddr').textContent = '📍 ' + C.address;
+  $('#fPhone').innerHTML = '📞 <a href="tel:'+C.phone.replace(/\s/g,'')+'">'+C.phone+'</a>';
+  $('#fHours').textContent = '🕐 ' + C.hoursText;
+  $('#fMap').href = C.mapsUrl || '#';
+  $('#yr').textContent = new Date().getFullYear();
+  if(!C.show?.ticker) $('#ticker')?.remove();
+  if(!C.show?.qr) $('#qrBtn')?.remove();
+  if(!C.show?.offerBanner) $('#offer')?.remove();
 
-/* حالة الفتح */
-(function(){
-  const h = new Date().getHours(), o = C.openHour, c = C.closeHour;
-  const open = c > o ? (h >= o && h < c) : (h >= o || h < c);
-  if(!open){ $('#stDot').classList.add('off'); $('#stTxt').textContent = 'مغلق حالياً • تصفح المنيو'; }
-  else $('#stTxt').textContent = 'مفتوح الآن • نستقبل الطلبات';
-})();
+  /* حالة الفتح */
+  (function(){
+    const h = new Date().getHours(), o = C.openHour, c = C.closeHour;
+    const open = c > o ? (h >= o && h < c) : (h >= o || h < c);
+    if(!open){ $('#stDot').classList.add('off'); $('#stTxt').textContent = 'مغلق حالياً • تصفح المنيو'; }
+    else $('#stTxt').textContent = 'مفتوح الآن • نستقبل الطلبات';
+  })();
+}
 
 /* ---------- THEME ---------- */
 const th = localStorage.getItem('mp_theme');
@@ -373,16 +382,19 @@ $('#theme').onclick = () => {
 };
 
 /* ---------- CHIPS ---------- */
-$('#chips').innerHTML = C.categories.map(c =>
-  `<button class="chip ${c.id==='all'?'on':''}" data-c="${c.id}">${c.icon} ${c.name}</button>`).join('');
-$$('.chip').forEach(b => b.onclick = () => {
-  $$('.chip').forEach(x => x.classList.remove('on')); b.classList.add('on');
-  filter = b.dataset.c; render();
-});
+if (C.categories) {
+  $('#chips').innerHTML = C.categories.map(c =>
+    `<button class="chip ${c.id==='all'?'on':''}" data-c="${c.id}">${c.icon} ${c.name}</button>`).join('');
+  $$('.chip').forEach(b => b.onclick = () => {
+    $$('.chip').forEach(x => x.classList.remove('on')); b.classList.add('on');
+    filter = b.dataset.c; render();
+  });
+}
 $('#q').oninput = e => { search = e.target.value.trim(); render(); };
 
 /* ---------- RENDER GRID ---------- */
 function render(){
+  if(!C.items) return;
   const list = C.items.filter(i =>
     (filter === 'all' || i.cat === filter) &&
     (!search || (i.name + i.desc).toLowerCase().includes(search.toLowerCase())));
@@ -419,7 +431,7 @@ function render(){
 render();
 
 /* ---------- OFFER ---------- */
-if(C.show.offerBanner && C.offer){
+if(C.show?.offerBanner && C.offer){
   const o = C.offer;
   $('#offerBox').innerHTML = `
     <div class="txt">
@@ -523,7 +535,7 @@ function drawCart(){
   const dAmt = sub * disc / 100;
   let del = 0;
   if(type === 'delivery' && cart.length){
-    del = C.deliveryFee;
+    del = C.deliveryFee || 0;
     if(C.freeDeliveryOver && sub - dAmt >= C.freeDeliveryOver) del = 0;
   }
   $('#sSub').textContent = money(sub) + ' ' + CUR;
@@ -537,7 +549,7 @@ drawCart();
 
 $('#coupon').oninput = e => {
   const code = e.target.value.trim().toUpperCase();
-  if(C.coupons[code]){ disc = C.coupons[code]; toast('🎉 خصم ' + disc + '% مُفعّل'); }
+  if(C.coupons && C.coupons[code]){ disc = C.coupons[code]; toast('🎉 خصم ' + disc + '% مُفعّل'); }
   else disc = 0;
   drawCart();
 };
@@ -559,44 +571,45 @@ $('#sendBtn').onclick = () => {
   const sub = cart.reduce((s,i)=>s+i.price*i.qty,0);
   const dAmt = sub*disc/100;
   let del = 0;
-  if(type === 'delivery'){ del = C.deliveryFee; if(C.freeDeliveryOver && sub-dAmt >= C.freeDeliveryOver) del = 0; }
+  if(type === 'delivery'){ del = C.deliveryFee || 0; if(C.freeDeliveryOver && sub-dAmt >= C.freeDeliveryOver) del = 0; }
 
   let m = `*🔥 طلب جديد — ${C.restaurantName}*\n━━━━━━━━━━━━━\n`;
   cart.forEach((c,i)=> m += `${i+1}. ${c.name}${c.opt?` (${c.opt})`:''}\n   ×${c.qty} = ${money(c.price*c.qty)} ${CUR}\n`);
-  m += `━━━━━━━━━━━━━\nالمجموع: ${money(sub)} ${CUR}\n`;
-  if(disc) m += `الخصم (${disc}%): −${money(dAmt)} ${CUR}\n`;
-  if(type === 'delivery') m += `التوصيل: ${del?money(del)+' '+CUR:'مجاني'}\n`;
-  m += `*الإجمالي: ${money(sub-dAmt+del)} ${CUR}*\n━━━━━━━━━━━━━\n`;
-  m += `👤 ${nm}\n📱 ${tl}\n${type==='delivery'?`🚚 توصيل\n📍 ${ad}`:'🏠 استلام من المطعم'}`;
-  const nt = $('#fNote').value.trim(); if(nt) m += `\n📝 ${nt}`;
+  m += `━━━━━━━━━━━━━\n`;
+  m += `👤 *الاسم:* ${nm}\n📞 *الهاتف:* ${tl}\n`;
+  if(type === 'delivery') m += `📍 *العنوان:* ${ad}\n`;
+  m += `🛵 *نوع الطلب:* ${type === 'delivery' ? 'توصيل' : 'استلام من الفرع'}\n`;
+  if($('#fNote').value.trim()) m += `📝 *ملاحظات:* ${$('#fNote').value.trim()}\n`;
+  m += `━━━━━━━━━━━━━\n`;
+  m += `💰 *المجموع:* ${money(sub-dAmt+del)} ${CUR}\n`;
+
   window.open(`https://wa.me/${C.whatsapp}?text=${encodeURIComponent(m)}`, '_blank');
-  toast('✅ تم فتح واتساب');
 };
 
-/* ---------- UI HELPERS ---------- */
+/* ---------- UTILS & UI CONTROLS ---------- */
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'), 2500);
+}
 function openCart(){ $('#cart').classList.add('on'); $('#ov').classList.add('on'); document.body.classList.add('lock'); }
-function closeAll(){ $$('.drawer,.modal,.ov').forEach(e=>e.classList.remove('on')); document.body.classList.remove('lock'); }
+function closeAll(){
+  $$('.drawer, .modal, .ov').forEach(e=>e.classList.remove('on'));
+  document.body.classList.remove('lock');
+}
 $('#cartBtn').onclick = openCart;
 $('#ov').onclick = closeAll;
-$('#burger').onclick = () => go('#menu');
-document.onkeydown = e => e.key === 'Escape' && closeAll();
-$('#qrBtn') && ($('#qrBtn').onclick = () => {
-  $('#qrImg').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(location.href)}">`;
-  $('#qrModal').classList.add('on'); $('#ov').classList.add('on'); document.body.classList.add('lock');
-});
-function go(s){ closeAll(); document.querySelector(s).scrollIntoView({behavior:'smooth'}); }
-$$('.links a').forEach(a => a.onclick = e => { e.preventDefault(); go(a.getAttribute('href')); });
-let tt;
-function toast(t){ const e=$('#toast'); e.textContent=t; e.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>e.classList.remove('on'),2200); }
-$('#top').onclick = () => scrollTo({top:0,behavior:'smooth'});
 
-addEventListener('scroll', () => {
-  const y = scrollY;
-  $('#hdr').classList.toggle('sticky', y > 40);
-  $('#top').classList.toggle('on', y > 500);
-  $('#prog').style.width = (y / (document.body.scrollHeight - innerHeight) * 100) + '%';
+if ($('#qrBtn')) {
+  $('#qrBtn').onclick = () => {
+    $('#qrModal').classList.add('on'); $('#ov').classList.add('on'); document.body.classList.add('lock');
+  };
+}
+
+// إخفاء الـ Loader عند اكتمال تحميل الصفحة
+window.addEventListener('load', () => {
+  const ldr = $('#loader');
+  if(ldr) ldr.classList.add('out');
 });
-addEventListener('load', () => setTimeout(()=>$('#loader').classList.add('out'), 700));
 </script>
 </body>
 </html>
