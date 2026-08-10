@@ -1,7 +1,8 @@
 ```javascript
 /*
   MENU PRO V3 — Restaurant Configuration
-  عدّل هذه القيم فقط لكل مطعم.
+  ========================================
+  عدّل هذه البيانات فقط لكل مطعم.
 */
 
 window.MENU_CONFIG = {
@@ -9,8 +10,9 @@ window.MENU_CONFIG = {
   // 🏪 معلومات المطعم
   restaurantName: "جمر وذهب",
   subtitle: "مطعم ومشاوي شرقية",
-  
-  // 📍 معلومات التواصل
+  logo: "🔥",
+
+  // 📍 التواصل
   address: "شارع الجامعة - عمّان",
   phone: "079 000 0000",
   whatsapp: "962790000000",
@@ -20,28 +22,39 @@ window.MENU_CONFIG = {
   facebook: "",
 
   // 🕐 أوقات العمل
-  openingHours: "10:00 AM - 12:00 AM",
+  openingHours: "يومياً 11:00 ص — 1:00 ص",
 
-  // 💰 العملة
-  currency: "JOD",
+  // ⭐ التقييم
+  rating: "4.9",
+  reviews: "+500",
 
-  // 🎨 إعدادات التصميم
-  theme: {
-    primaryColor: "#D4AF37",
-    backgroundColor: "#0B0B0B",
-    textColor: "#FFFFFF"
-  },
-
-  // ⭐ معلومات المطعم
-  rating: "4.8",
-  reviews: "250+",
-
-  // 🚚 إعدادات الطلب
+  // 🚚 معلومات الخدمة
+  deliveryTime: "25–35 دقيقة",
   delivery: true,
   pickup: true,
   tableOrders: true,
 
-  // 📲 إعدادات WhatsApp
-  whatsappMessage: "مرحباً، أريد طلب الطعام من مطعم جمر وذهب."
+  // 💰 العملة
+  currency: "JOD",
+  currencyLabel: "JOD",
+
+  // 🎨 ألوان الموقع
+  theme: {
+    gold: "#e7ad3e",
+    goldLight: "#ffd76b",
+    background: "#070707"
+  },
+
+  // 🔥 العرض الرئيسي
+  offer: {
+    enabled: true,
+    label: "🔥 عرض اليوم",
+    name: "وجبة التوفير الذهبية",
+    description: "برجر كلاسيك + بطاطا + مشروب",
+    oldPrice: 9.50,
+    price: 7.50,
+    productId: 9
+  }
+
 };
 ```
