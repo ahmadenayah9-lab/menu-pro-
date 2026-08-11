@@ -1,17 +1,18 @@
 // ============================================
 // إعدادات المطعم — عدّل هون البيانات متل ما بدك
 // ============================================
-
+ 
 const RESTAURANT = {
   name: "بيت الشام",
   tagline: "مطبخ شامي أصيل، نكهة ما بتتكرر",
   phone: "+962 7 9999 8888",
+  whatsapp: "962799998888", // رقم الواتساب اللي بتوصل عليه الطلبات — بدون + أو صفر أول
   address: "شارع الرينبو، جبل عمّان، عمّان",
   hours: "يومياً من الساعة ١٢ ظهراً لغاية ١٢ منتصف الليل",
   instagram: "@bait.elsham",
   currency: "د.أ",
 };
-
+ 
 // كل قسم إله: id (بالإنجليزي، ما بيتغير)، اسم عربي، أيقونة (SVG اسم)، ولون مميز اختياري
 const CATEGORIES = [
   { id: "starters",  name: "مقبلات",        subtitle: "بداية الحكاية",         icon: "leaf" },
@@ -22,7 +23,7 @@ const CATEGORIES = [
   { id: "desserts",  name: "حلويات",         subtitle: "ختام حلو",              icon: "sweet" },
   { id: "drinks",    name: "مشروبات",        subtitle: "ساخنة وباردة",          icon: "cup" },
 ];
-
+ 
 // items[category.id] = مصفوفة أطباق
 // كل طبق: name, desc, price (رقم), tags: ["spicy","veg","new","chef"], img (رابط اختياري)
 const MENU = {
@@ -72,10 +73,10 @@ const MENU = {
     { name: "ليموناضة بالنعنع", desc: "ليمون طازة مع نعنع مثلج", price: 2.0, tags: ["veg"] },
   ],
 };
-
+ 
 // اختياري: صور بانر لكل قسم (روابط)، اتركها فاضية لو ما بدك صور
 const CATEGORY_IMAGES = {};
-
+ 
 // أيقونة SVG لكل tag
 const TAGS = {
   spicy: { label: "حار",     color: "#e05d38" },
@@ -83,3 +84,4 @@ const TAGS = {
   new:   { label: "جديد",    color: "#c99a3f" },
   chef:  { label: "طبق الشيف", color: "#8a5a3f" },
 };
+ 
